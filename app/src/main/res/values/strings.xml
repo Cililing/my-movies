@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">My movies</string>
+    <string name="app_search">Search</string>
+    <string name="app_deatils">Movie details</string>
+
+
+    <string name="button_add_to_favourities">Add to favourities</string>
+    <string name="button_remove_from_favourities">Remove from favourities</string>
+
+    <string name="Search">Search</string>
+    <string name="Favourities">Favourities</string>
+
+
+    <string name="details_film_exists">Movie already exist in your collecion!</string>
+    <string name="details_film_ok">Movie saved in your collecion!</string>
+    <string name="details_film_deleted">Movie removed from your collecion!</string>
+    <string name="original_title">Original title</string>
+    <string name="vote_average">Average vote:</string>
+    <string name="language">Language:</string>
+</resources>
