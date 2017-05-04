@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.przemek.mymoviesv3.Interfaces.CustomItemClickListener;
 import com.example.przemek.mymoviesv3.MovieDatabaseAsyncTasks.DownloadImageTask;
 import com.example.przemek.mymoviesv3.MovieDatabaseApi.Movie;
 import com.example.przemek.mymoviesv3.R;
@@ -45,7 +46,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
         if (movie.getBitmapPoster() == null) {
 
             //there is no bitmapposter saved
-            new DownloadImageTask(holder.moviePoster, mContext).execute(movie.getPosterPath());
+            new DownloadImageTask(holder.moviePoster, mContext, null).execute(movie.getPosterPath());
         } else {
             holder.moviePoster.setImageBitmap(movie.getBitmapPoster());
         }

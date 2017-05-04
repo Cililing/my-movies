@@ -11,10 +11,15 @@
     <string name="Favourities">Favourities</string>
 
 
+    <string name="empty_search_res">Empty seatch result.</string>
+
     <string name="details_film_exists">Movie already exist in your collecion!</string>
     <string name="details_film_ok">Movie saved in your collecion!</string>
     <string name="details_film_deleted">Movie removed from your collecion!</string>
     <string name="original_title">Original title</string>
     <string name="vote_average">Average vote:</string>
     <string name="language">Language:</string>
+
+    <string name="error_info">An error occurred. Tap anywhere to connect again.</string>
+    <string name="error_toast">You still dont have internet connection.</string>
 </resources>

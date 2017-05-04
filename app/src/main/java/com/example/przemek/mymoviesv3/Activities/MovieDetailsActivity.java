@@ -44,15 +44,6 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
     }
 
-    private boolean chceckIfMovieIsInYourCollection() {
-        for (Movie m : UserData.getUserMovies()) {
-            if (m.getId() == movie.getId()) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     private void setButtonName() {
         if (!movieInCollection) addButton.setText(R.string.button_add_to_favourities);
         if (movieInCollection) addButton.setText(R.string.button_remove_from_favourities);
@@ -60,18 +51,17 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
     private void generateThisShit() {
 
-        new DownloadImageTask(poster, this.getApplicationContext()).execute(movie.getPosterPath());
+        new DownloadImageTask(poster, this.getApplicationContext(), null).execute(movie.getPosterPath());
 
         title.setText(movie.getTitle());
         originalTitle.setText(movie.getOriginalTitle());
         releaseDate.setText(movie.getReleaseDate());
         genres.setText(movie.getGenresList());
         overview.setText(movie.getOverview());
-        overview.setText(movie.getOverview());
         voteAverage.setText(String.valueOf(movie.getVoteAverage()));
         language.setText(movie.getOriginalLanguage());
 
-        movieInCollection = chceckIfMovieIsInYourCollection();
+        movieInCollection = Tools.chceckIfMovieIsInYourCollection(movie);
         setButtonName();
     }
 
@@ -89,13 +79,13 @@ public class MovieDetailsActivity extends AppCompatActivity {
             //user dont have this film in his collecion
             if (!movieInCollection) {
                 UserData.getUserMovies().add((Movie) movie.clone());
-                makeToast(getResources().getString(R.string.details_film_ok));
+                Tools.makeLongToast(getApplicationContext(), getResources().getString(R.string.details_film_ok));
                 movieInCollection = true;
             }
             //user have it in his collection
             else {
                 UserData.getUserMovies().remove(movie);
-                makeToast(getResources().getString(R.string.details_film_deleted));
+                Tools.makeLongToast(getApplicationContext(), getResources().getString(R.string.details_film_deleted));
                 movieInCollection = false;
             }
 
@@ -107,7 +97,4 @@ public class MovieDetailsActivity extends AppCompatActivity {
         setButtonName();
     }
 
-    private void makeToast(String toast) {
-        Toast.makeText(getApplicationContext(), toast, Toast.LENGTH_LONG).show();
-    }
 }

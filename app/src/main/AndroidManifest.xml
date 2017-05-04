@@ -25,6 +25,7 @@
         <activity
             android:name=".Activities.MovieDetailsActivity"
             android:label="@string/app_deatils" />
+        <activity android:name=".Activities.ErrorActivity"></activity>
     </application>
 
 </manifest>

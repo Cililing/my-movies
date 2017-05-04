@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.example.przemek.mymoviesv3.Interfaces.CustomItemClickListener;
 import com.example.przemek.mymoviesv3.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setItemViewCacheSize(cacheSize);
 
 
-        mMoviesAdapter = new MoviesAdapter(UserData.getUserMovies(), new OnMovieItemClickOpenDetails(UserData.getUserMovies()), getApplicationContext());
+        mMoviesAdapter = new MoviesAdapter(UserData.getUserMovies(), new OnMovieItemClickOpenDetails(), getApplicationContext());
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
@@ -88,6 +89,20 @@ public class MainActivity extends AppCompatActivity {
         UserData.saveData(this.getApplicationContext());
     }
 
+    private class OnMovieItemClickOpenDetails implements CustomItemClickListener {
+
+        @Override
+        public void onClick(View view, int position, String... params) {
+            Intent i = new Intent(view.getContext(), MovieDetailsActivity.class);
+            i.putExtra("movie", UserData.getUserMovies().get(position));
+            view.getContext().startActivity(i);
+        }
+
+        @Override
+        public void onLongClick(View view, int position, String... params) {
+            //TODO
+        }
+    }
 
 
 //    private void prepareMovieData() {
