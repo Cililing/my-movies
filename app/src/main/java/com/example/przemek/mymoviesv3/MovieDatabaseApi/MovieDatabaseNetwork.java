@@ -41,4 +41,18 @@ public class MovieDatabaseNetwork {
         return part1 + ApiParameters.authKeyV3 + part2 + title + part3;
     }
 
+    static String genereteMovieDetailsURLbyId(int id) {
+        String p1 = "https://api.themoviedb.org/3/movie/";
+        String p2 = "?api_key=";
+        String p3 = "&language";
+
+        return p1 + id + p2 + ApiParameters.authKeyV3 + p3 + ApiParameters.default_lang;
+    }
+
+    static String generateMovieCastListById(int id) {
+        String p1 = "https://api.themoviedb.org/3/movie/";
+        String p2 = "/credits?api_key=";
+
+        return p1 + id + p2 + ApiParameters.authKeyV3;
+    }
 }

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/details_general_holder"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="8dp">
+
+                <!--<fragment-->
+                    <!--android:id="@+id/details_general_fragment"-->
+                    <!--android:name="com.example.przemek.mymoviesv3.Activities.MovieDetail.HeaderFragment"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_margin="@dimen/top_padding"-->
+                    <!--tools:layout="@layout/fragment_movie_header"-->
+                    <!--android:layout_height="match_parent" />-->
+
+            </FrameLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/dividerLineColor"/>
+
+            <FrameLayout
+                android:id="@+id/details_overview_holder"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="8dp">
+
+                <!--<fragment-->
+                    <!--android:id="@+id/details_fragment_overview"-->
+                    <!--android:name="com.example.przemek.mymoviesv3.Activities.MovieDetail.RatingBarFragment"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_margin="@dimen/top_padding"-->
+                    <!--tools:layout="@layout/fragment_movie_overview"-->
+                    <!--android:layout_height="match_parent" />-->
+
+            </FrameLayout>
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/dividerLineColor" />
+
+            <FrameLayout
+                android:id="@+id/details_rate_holder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="8dp">
+
+                <!--<fragment-->
+                    <!--android:id="@+id/details_rate_fragment"-->
+                    <!--android:name="com.example.przemek.mymoviesv3.Activities.MovieDetail.RatingBarFragment"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_margin="@dimen/top_padding"-->
+                    <!--tools:layout="@layout/fragment_movie_rate"-->
+                    <!--android:layout_height="match_parent" />-->
+            </FrameLayout>
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/dividerLineColor"  />
+
+            <FrameLayout
+                android:id="@+id/details_cast_holder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="8dp">
+
+                <!--<fragment-->
+                    <!--android:id="@+id/details_cast_fragment"-->
+                    <!--android:name="com.example.przemek.mymoviesv3.Activities.MovieDetail.CastFragment"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_margin="@dimen/top_padding"-->
+                    <!--tools:layout="@layout/fragment_cast"-->
+                    <!--android:layout_height="match_parent" />-->
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>

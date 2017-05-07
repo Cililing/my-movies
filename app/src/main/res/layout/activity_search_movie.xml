@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.przemek.mymoviesv3.Activities.SearchMovieActivity">
+    tools:context="com.example.przemek.mymoviesv3.Activities.SearchMovieActivity.SearchMovieActivity">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/search_movie_recycler_view"
@@ -24,7 +24,7 @@
     <SearchView
         android:id="@+id/search_movie_search_view"
         android:layout_width="0dp"
-        android:layout_height="29dp"
+        android:layout_height="32dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"

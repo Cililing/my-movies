@@ -6,5 +6,6 @@ public class MovieDatabaseApiException extends Exception {
     public MovieDatabaseApiException() {
         super();
     }
+
 }
 

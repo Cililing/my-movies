@@ -7,4 +7,6 @@
     <color name="title">#222222</color>
     <color name="card_title">#db1735</color>
 
+
+    <color name="dividerLineColor">#cac7c7</color>
 </resources>

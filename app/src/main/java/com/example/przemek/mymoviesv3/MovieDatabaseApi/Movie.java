@@ -11,6 +11,8 @@ import java.io.Serializable;
 
 public class Movie implements Cloneable, Serializable {
 
+    public static final int maxRate = 10;
+
     private int id = 0;
     private String posterPath = "posterPath";
     private String overview = "overview";
@@ -18,8 +20,12 @@ public class Movie implements Cloneable, Serializable {
     private String title = "title";
     private String releaseDate = "releaseDate";
     private String originalLanguage = "originalLanguage";
-    private String[] genres = new String[1]; //TODO genres
+    private String[] genres = new String[1];
     private float voteAverage = 0;
+
+    private int budget = 0;
+    private int popularity = 0;
+    private int runtime = 0;
 
     private Bitmap bitmapPoster = null;
 
@@ -49,6 +55,17 @@ public class Movie implements Cloneable, Serializable {
         this.voteAverage = vote_averange;
     }
 
+    public Object clone() throws CloneNotSupportedException {
+        super.clone();
+        Movie m = new Movie(id, posterPath, overview, originalTitle, title, releaseDate, originalLanguage, genres, voteAverage);
+        m.budget = budget;
+        m.popularity = popularity;
+        m.runtime = runtime;
+        m.bitmapPoster = bitmapPoster;
+        m.userRating = userRating;
+        return m;
+    }
+
     public JSONObject generateJSONObject() throws JSONException {
         JSONObject thisMovie = new JSONObject();
         thisMovie.put(ApiParameters.id, this.id);
@@ -70,7 +87,6 @@ public class Movie implements Cloneable, Serializable {
         return thisMovie;
     }
 
-
     public int getId() {
         return id;
     }
@@ -80,7 +96,7 @@ public class Movie implements Cloneable, Serializable {
     }
 
     public String getPosterPath() {
-        return ApiParameters.defaultPosterRequest + posterPath;
+        return ApiParameters.defaultImageRequest + posterPath;
     }
 
     public void setPosterPath(String posterPath) {
@@ -162,12 +178,6 @@ public class Movie implements Cloneable, Serializable {
         this.userRating = userRating;
     }
 
-    @Override
-    public Object clone() throws CloneNotSupportedException {
-        super.clone();
-        return new Movie(id, posterPath, overview, originalTitle, title, releaseDate, originalLanguage, genres, voteAverage);
-    }
-
     public Bitmap getBitmapPoster() {
         return bitmapPoster;
     }
@@ -185,5 +195,29 @@ public class Movie implements Cloneable, Serializable {
         }
 
         return false;
+    }
+
+    public int getBudget() {
+        return budget;
+    }
+
+    public void setBudget(int budget) {
+        this.budget = budget;
+    }
+
+    public int getPopularity() {
+        return popularity;
+    }
+
+    public void setPopularity(int popularity) {
+        this.popularity = popularity;
+    }
+
+    public int getRuntime() {
+        return runtime;
+    }
+
+    public void setRuntime(int runtime) {
+        this.runtime = runtime;
     }
 }

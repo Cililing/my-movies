@@ -1,14 +1,14 @@
 <resources>
+
     <string name="app_name">My movies</string>
     <string name="app_search">Search</string>
     <string name="app_deatils">Movie details</string>
 
-
+    <!--Button-->
     <string name="button_add_to_favourities">Add to favourities</string>
     <string name="button_remove_from_favourities">Remove from favourities</string>
 
-    <string name="Search">Search</string>
-    <string name="Favourities">Favourities</string>
+    <string name="favourities">Favourities</string>
 
 
     <string name="empty_search_res">Empty seatch result.</string>
@@ -22,4 +22,20 @@
 
     <string name="error_info">An error occurred. Tap anywhere to connect again.</string>
     <string name="error_toast">You still dont have internet connection.</string>
+
+    <!--Navigation Drawer-->
+    <string name="title_activity_navigation_drawer">NavigationDrawerActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <!--Labels-->
+    <string name="search">Search</string>
+    <string name="other_category">Other</string>
+    <string name="about_me">About me</string>
+
+
+    <string name="ratring_bar_user_rate">Your rate: </string>
+    <string name="rating_bar_users">Their rate: </string>
+    <string name="rating_bar_popularity">Popularity: %d</string>
+    <string name="casting">Casting</string>
 </resources>

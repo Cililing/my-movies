@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.MainActivity">
+        <activity android:name=".Activities.MainActivity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,12 +20,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activities.SearchMovieActivity"
+            android:name=".Activities.SearchMovieActivity.SearchMovieActivity"
             android:label="@string/app_search" />
         <activity
-            android:name=".Activities.MovieDetailsActivity"
+            android:name=".Activities.MovieDetailActivity.MovieDetailsActivity"
             android:label="@string/app_deatils" />
-        <activity android:name=".Activities.ErrorActivity"></activity>
+        <activity android:name=".Activities.ErrorActivity.ErrorActivity" />
+        <activity
+            android:name=".Activities.NavigationDrawerActivity"
+            android:label="@string/title_activity_navigation_drawer"
+            android:theme="@style/Theme.AppCompat"></activity>
     </application>
 
 </manifest>

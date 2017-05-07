@@ -10,23 +10,8 @@
         android:layout_centerVertical="true"
         android:layout_toStartOf="@+id/secondView">
 
-        <SearchView
-            android:id="@+id/search_movie_search_view"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginRight="8dp"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginEnd="8dp" />
-
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/search_movie_recycler_view"
+            android:id="@+id/main_activity_recycler_view"
             android:layout_width="280dp"
             android:layout_height="0dp"
             android:layout_alignParentBottom="true"
@@ -34,10 +19,25 @@
             android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/search_movie_search_view"
-            app:layout_constraintVertical_bias="1.0"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/main_activity_search_view" />
+
+        <SearchView
+            android:id="@+id/main_activity_search_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="7dp"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </android.support.constraint.ConstraintLayout>
 
@@ -54,24 +54,43 @@
 
 
         <FrameLayout
-            android:id="@+id/search_fragment_container"
+            android:id="@+id/main_fragment_container"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp">
+            app:layout_constraintVertical_bias="0.0">
 
         </FrameLayout>
     </android.support.constraint.ConstraintLayout>
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/main_acticity_floating_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="24dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
+        android:src="@android:drawable/ic_menu_more"
+        app:backgroundTint="@color/card_title"
+        app:elevation="8dp"
+        app:fabSize="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:pressedTranslationZ="12dp"
+        app:srcCompat="@android:drawable/arrow_down_float" />
 
 </RelativeLayout>

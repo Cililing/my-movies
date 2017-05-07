@@ -85,5 +85,36 @@ public class ServerAnswerPraser {
 
     }
 
+    static void addExtraDataToMovie(String jsonRawData, Movie movie) throws JSONException, MovieDatabaseApiException {
+        JSONObject reader = new JSONObject(jsonRawData);
 
+        if (reader.has(ApiParameters.status_message)) {
+            throw new MovieDatabaseApiException();
+        }
+
+        movie.setBudget(reader.optInt(ApiParameters.budget, 0));
+        movie.setRuntime(reader.optInt(ApiParameters.runtime, 0));
+        movie.setPopularity(reader.optInt(ApiParameters.budget, 0));
+    }
+
+    public static void generateMovieCastListFromJSONRequest(String jsonRequest, ArrayList<Person> outList) throws JSONException, MovieDatabaseApiException {
+        JSONObject reader = new JSONObject(jsonRequest);
+
+        if (reader.has(ApiParameters.status_message)) {
+            throw new MovieDatabaseApiException();
+        }
+
+        JSONArray castArray = reader.getJSONArray(ApiParameters.cast_array);
+        for (int i = 0; i < castArray.length(); i++) {
+            JSONObject person = castArray.getJSONObject(i);
+
+            int id = person.getInt(ApiParameters.id);
+            String name = person.getString(ApiParameters.name);
+            String character = person.getString(ApiParameters.character);
+            String profilePath = person.getString(ApiParameters.profile_path);
+
+            outList.add(new Person(id, name, character, profilePath));
+        }
+
+    }
 }
