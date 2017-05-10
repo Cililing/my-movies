@@ -52,4 +52,8 @@ public class ApiParameters {
     static final String profile_path = "profile_path";
 
 
+    //movie images
+    static final String posters_array  = "posters";
+    static final String backdrops_array = "backdrops";
+    static final String file_path = "file_path";
 }

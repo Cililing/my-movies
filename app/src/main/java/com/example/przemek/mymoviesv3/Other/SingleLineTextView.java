@@ -24,7 +24,7 @@ public class SingleLineTextView extends android.support.v7.widget.AppCompatTextV
     }
 
     public SingleLineTextView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
+        super(context,attrs, defStyleAttr);
         setSingleLine();
         setEllipsize(TextUtils.TruncateAt.END);
     }

@@ -10,7 +10,6 @@
 
     <string name="favourities">Favourities</string>
 
-
     <string name="empty_search_res">Empty seatch result.</string>
 
     <string name="details_film_exists">Movie already exist in your collecion!</string>
@@ -38,4 +37,11 @@
     <string name="rating_bar_users">Their rate: </string>
     <string name="rating_bar_popularity">Popularity: %d</string>
     <string name="casting">Casting</string>
+    <string name="button_show_details">Show details</string>
+    <string name="button_favourities">Add/remove from favourities</string>
+
+    <string name="set_as_backgroud_ask">Set as background?</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
+    <string name="error">Error</string>
 </resources>

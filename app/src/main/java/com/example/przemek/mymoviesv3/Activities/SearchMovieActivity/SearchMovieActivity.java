@@ -1,6 +1,5 @@
 package com.example.przemek.mymoviesv3.Activities.SearchMovieActivity;
 
-import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
@@ -20,12 +19,14 @@ import com.example.przemek.mymoviesv3.Activities.ErrorActivity.ErrorActivity;
 import com.example.przemek.mymoviesv3.Activities.MovieDetailActivity.MovieDetailsActivity;
 import com.example.przemek.mymoviesv3.Activities.MovieDetailActivity.MovieDetailsMainFragment;
 import com.example.przemek.mymoviesv3.Activities.Tools.MovieFragmentEmpty;
-import com.example.przemek.mymoviesv3.Activities.Tools.MoviesAdapter;
-import com.example.przemek.mymoviesv3.Activities.Tools.OnMovieItemClick;
+import com.example.przemek.mymoviesv3.Activities.MovieRecyclerView.MoviesAdapter;
+import com.example.przemek.mymoviesv3.MovieDatabaseApi.Movie;
 import com.example.przemek.mymoviesv3.Other.UserData;
-import com.example.przemek.mymoviesv3.Interfaces.CustomItemClickListener;
 import com.example.przemek.mymoviesv3.MovieDatabaseAsyncTasks.DownloadMoviesListTask;
 import com.example.przemek.mymoviesv3.R;
+
+import java.io.Serializable;
+import java.util.ArrayList;
 
 public class SearchMovieActivity extends AppCompatActivity {
 
@@ -36,13 +37,20 @@ public class SearchMovieActivity extends AppCompatActivity {
     private MoviesAdapter mMoviesAdapter;
     private FragmentManager fragmentManager;
 
+    private ArrayList<Movie> searchResult;
+    private ArrayList<Movie> userData;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_movie);
         fragmentManager = getFragmentManager();
+
         UserData.loadData(this.getApplicationContext());
+
+        userData = UserData.getUserMovies();
+        searchResult = new ArrayList<>();
 
         //load start fragmemt
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -60,14 +68,10 @@ public class SearchMovieActivity extends AppCompatActivity {
 
         //set recycler view
         mMoviesAdapter = new MoviesAdapter(
-                UserData.getSearchResult(),
-                new OnMovieItemClick(
-                        this,
-                        fragmentManager,
-                        UserData.getSearchResult(),
-                        R.id.search_fragment_container
-                ),
-                getApplicationContext());
+                searchResult,
+                new CustomItemClickListener(),
+                this.getApplicationContext()
+        );
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
@@ -82,9 +86,6 @@ public class SearchMovieActivity extends AppCompatActivity {
         super.onStop();
         UserData.saveData(this.getApplicationContext());
 
-//        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE & searchResultFragment != null) {
-//            getFragmentManager().beginTransaction().remove(searchResultFragment).commit();
-//        }
     }
 
     private void loadStartFragment() {
@@ -111,11 +112,10 @@ public class SearchMovieActivity extends AppCompatActivity {
             }
 
             new DownloadMoviesListTask(
-                    UserData.getSearchResult(),
+                    searchResult,
                     mMoviesAdapter,
                     getApplicationContext(),
-                    ErrorActivity.class)
-                    .execute(userRequest);
+                    ErrorActivity.class).execute(userRequest);
 
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(searchView.getWindowToken(), 0);
@@ -126,6 +126,63 @@ public class SearchMovieActivity extends AppCompatActivity {
         @Override
         public boolean onQueryTextChange(String newText) {
             return false;
+        }
+    }
+
+    private class CustomItemClickListener implements com.example.przemek.mymoviesv3.Interfaces.CustomItemClickListener {
+
+        @Override
+        public void onClick(View view, int position, Object... params) {
+            if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
+                onClickPortrait(view, position, params);
+            if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+                onClickLandspace(view, position, params);
+        }
+
+        @Override
+        public void onLongClick(View view, int position, Object... params) {
+            //fragment.toString();
+        }
+
+        @Override
+        public void onMovieMenuItemClick(View view, int position, Object... params) {
+            if (params[0].equals(movieRowMenuAddTag)) {
+                Movie movie = searchResult.get(position);
+
+                if (UserData.getUserMovies().contains(movie)) {
+                    userData.remove(movie);
+                } else {
+                    userData.add(movie);
+                }
+
+                mMoviesAdapter.notifyDataSetChanged();
+            }
+            else if (params[0].equals(movieRowMenuDetailsTag)) {
+                Intent i = new Intent(view.getContext(), MovieDetailsActivity.class);
+                i.putExtra("movie", (Serializable) searchResult.get(position));
+                view.getContext().startActivity(i);
+            }
+
+        }
+
+        private void onClickLandspace(View view, int position, Object... params) {
+
+            MovieDetailsMainFragment movieDetailsMainFragment = new MovieDetailsMainFragment();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+            Bundle fragmentBundle = new Bundle();
+            fragmentBundle.putSerializable("movie", (Serializable) searchResult.get(position));
+
+            movieDetailsMainFragment.setArguments(fragmentBundle);
+            fragmentTransaction.replace(R.id.main_fragment_container, movieDetailsMainFragment);
+            fragmentTransaction.commit();
+
+        }
+
+        private void onClickPortrait(View view, int position, Object... params) {
+            Intent i = new Intent(view.getContext(), MovieDetailsActivity.class);
+            i.putExtra("movie", (Serializable) searchResult.get(position));
+            view.getContext().startActivity(i);
         }
     }
 

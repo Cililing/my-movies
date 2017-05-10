@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:weightSum="1">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/movie_row_card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/card_margin"
+        android:layout_weight="0.90"
+        android:elevation="0dp"
+        card_view:cardCornerRadius="@dimen/card_radius">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/movie_row_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginStart="@dimen/card_poster_padding"
+                    android:layout_marginTop="@dimen/card_poster_padding"
+                    android:layout_weight="1"
+                    android:text="title"
+                    android:textSize="@dimen/card_title"
+                    card_view:layout_constraintBottom_toBottomOf="parent"
+                    card_view:layout_constraintLeft_toRightOf="@+id/movie_row_poster"
+                    card_view:layout_constraintRight_toRightOf="parent"
+                    card_view:layout_constraintTop_toTopOf="parent"
+                    card_view:layout_constraintVertical_bias="0.0" />
+
+                <ImageView
+                    android:id="@+id/movie_row_poster"
+                    android:layout_width="80dp"
+                    android:layout_height="120dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="@dimen/card_poster_padding"
+                    android:layout_marginStart="@dimen/card_poster_padding"
+                    android:layout_marginTop="@dimen/card_poster_padding"
+                    android:contentDescription="poster"
+                    card_view:layout_constraintBottom_toBottomOf="parent"
+                    card_view:layout_constraintLeft_toLeftOf="parent"
+                    card_view:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/movie_row_release_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:text="releaseDate"
+                    android:textSize="@dimen/realese_date"
+                    card_view:layout_constraintBottom_toBottomOf="@+id/movie_row_poster"
+                    card_view:layout_constraintLeft_toRightOf="@+id/movie_row_poster" />
+
+                <TextView
+                    android:id="@+id/movie_row_vote_average"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="voteAverage"
+                    card_view:layout_constraintBottom_toBottomOf="@+id/movie_row_button"
+                    card_view:layout_constraintRight_toRightOf="parent"
+                    card_view:layout_constraintTop_toTopOf="@+id/movie_row_button"
+                    card_view:layout_constraintVertical_bias="1.0" />
+
+                <TextView
+                    android:id="@+id/movie_row_genres"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginStart="8dp"
+                    android:text="genres"
+                    android:textSize="12sp"
+                    card_view:layout_constraintBottom_toTopOf="@+id/movie_row_release_date"
+                    card_view:layout_constraintLeft_toRightOf="@+id/movie_row_poster" />
+
+                <ImageButton
+                    android:id="@+id/movie_row_button"
+                    android:layout_width="15dp"
+                    android:layout_height="34dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginRight="0dp"
+                    android:elevation="1dp"
+                    card_view:layout_constraintBottom_toBottomOf="parent"
+                    card_view:layout_constraintRight_toRightOf="parent"
+                    card_view:srcCompat="@drawable/ic_dots" />
+
+
+            </android.support.constraint.ConstraintLayout>
+
+            <LinearLayout
+                android:id="@+id/movie_row_linear_menu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+
+                <include
+                    layout="@layout/movie_list_row_menu_content"
+                    layout_width="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

@@ -6,8 +6,10 @@ import org.json.JSONException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static com.example.przemek.mymoviesv3.MovieDatabaseApi.MovieDatabaseNetwork.downloadJSONRawData;
 import static com.example.przemek.mymoviesv3.MovieDatabaseApi.MovieDatabaseNetwork.generateMovieCastListById;
 import static com.example.przemek.mymoviesv3.MovieDatabaseApi.MovieDatabaseNetwork.generateSearchMovieURLbyTitle;
+import static com.example.przemek.mymoviesv3.MovieDatabaseApi.MovieDatabaseNetwork.genereateMovieImagesById;
 import static com.example.przemek.mymoviesv3.MovieDatabaseApi.MovieDatabaseNetwork.genereteMovieDetailsURLbyId;
 
 public class MovieDatabase {
@@ -35,7 +37,6 @@ public class MovieDatabase {
         ServerAnswerPraser.generateMovieCastListFromJSONRequest(JSONRequest, outList);
 
     }
-
     /**
      * @param url filename of poster in database
      * @return full poster url
@@ -48,6 +49,12 @@ public class MovieDatabase {
         String url = genereteMovieDetailsURLbyId(movie.getId());
         String JSONRequest = MovieDatabaseNetwork.downloadJSONRawData(url);
         ServerAnswerPraser.addExtraDataToMovie(JSONRequest, movie);
+    }
+
+    public static void getMovieImagesById(int id, ArrayList<String> outPosterlist, ArrayList<String> outBackdropList) throws IOException, JSONException, MovieDatabaseApiException {
+        String url = genereateMovieImagesById(id);
+        String JSONRequest = downloadJSONRawData(url);
+        ServerAnswerPraser.generateMovieImagesListFromJSONRequesr(JSONRequest, outPosterlist, outBackdropList);
     }
 
 }

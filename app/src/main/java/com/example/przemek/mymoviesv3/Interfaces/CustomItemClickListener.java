@@ -4,7 +4,11 @@ import android.view.View;
 
 public interface CustomItemClickListener {
 
-    void onClick(View view, int position, String... params);
-    void onLongClick(View view, int position, String... params);
+    String movieRowMenuDetailsTag = "movie_row_menu_details";
+    String movieRowMenuAddTag = "movie_row_menu_add";
+
+    void onClick(View view, int position, Object... params);
+    void onLongClick(View view, int position, Object... params);
+    void onMovieMenuItemClick(View view, int position, Object... params);
 
 }

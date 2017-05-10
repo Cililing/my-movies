@@ -55,4 +55,12 @@ public class MovieDatabaseNetwork {
 
         return p1 + id + p2 + ApiParameters.authKeyV3;
     }
+
+    static String genereateMovieImagesById(int id) {
+        String p1 = "https://api.themoviedb.org/3/movie/";
+        String p2 = "/images?api_key=";
+        String p3 = "&language=en-US&include_image_language=en";
+
+        return p1 + id + p2 + ApiParameters.authKeyV3 + p3;
+    }
 }

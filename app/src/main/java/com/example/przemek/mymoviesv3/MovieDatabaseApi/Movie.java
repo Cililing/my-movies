@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 
 public class Movie implements Cloneable, Serializable {
@@ -30,6 +31,9 @@ public class Movie implements Cloneable, Serializable {
     private Bitmap bitmapPoster = null;
 
     private float userRating = 0;
+
+    private ArrayList<String> posters = new ArrayList<>();
+    private ArrayList<String> backdrops = new ArrayList<>();
 
     public Movie() {
         //nothing to do
@@ -64,6 +68,12 @@ public class Movie implements Cloneable, Serializable {
         m.bitmapPoster = bitmapPoster;
         m.userRating = userRating;
         return m;
+    }
+
+    public boolean isMatchedPattern(String pattern) {
+        if (title.toLowerCase().contains(pattern.toLowerCase())) return true;
+        if (originalTitle.toLowerCase().contains(pattern.toLowerCase())) return true;
+        return false;
     }
 
     public JSONObject generateJSONObject() throws JSONException {
@@ -219,5 +229,28 @@ public class Movie implements Cloneable, Serializable {
 
     public void setRuntime(int runtime) {
         this.runtime = runtime;
+    }
+
+    public ArrayList<String> getPosters() {
+        return posters;
+    }
+
+    public void setPosters(ArrayList<String> posters) {
+        this.posters = posters;
+    }
+
+    public ArrayList<String> getBackdrops() {
+        return backdrops;
+    }
+
+    public void setBackdrops(ArrayList<String> backdrops) {
+        this.backdrops = backdrops;
+    }
+
+    public ArrayList<String> getPostersAndBackDrops() {
+        ArrayList<String> srcs = new ArrayList<>();
+        srcs.addAll(getPosters());
+        srcs.addAll(getBackdrops());
+        return srcs;
     }
 }

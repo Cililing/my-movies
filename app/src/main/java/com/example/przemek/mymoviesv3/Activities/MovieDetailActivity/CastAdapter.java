@@ -38,7 +38,7 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.CastViewHolder
     @Override
     public void onBindViewHolder(CastViewHolder holder, int position) {
         Person person = castList.get(position);
-
+        //holder.characterImage.setImageDrawable(null);
         new DownloadImageTask(holder.characterImage, mContext, null)
                 .execute(person.getProfilePath());
 

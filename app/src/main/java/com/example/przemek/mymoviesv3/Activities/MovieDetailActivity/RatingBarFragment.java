@@ -91,31 +91,22 @@ public class RatingBarFragment extends Fragment {
     @OnClick(R.id.details_fav_button)
     public void OnFavButtonClick() {
 
-        try {
-            //check if is film in your collection
-
-            //user dont have this film in his collecion
-            if (!movieInCollection) {
-                Drawable drawable = ContextCompat.getDrawable(getActivity().getApplicationContext(), android.R.drawable.btn_star_big_on);
-                favButton.setImageDrawable(drawable);
-                UserData.getUserMovies().add((Movie) movie.clone());
-                Tools.makeLongToast(getActivity().getApplicationContext(), getResources().getString(R.string.details_film_ok));
-                movieInCollection = true;
-            }
-            //user have it in his collection
-            else {
-                Drawable drawable = ContextCompat.getDrawable(getActivity().getApplicationContext(), android.R.drawable.btn_star_big_off);
-                favButton.setImageDrawable(drawable);
-                UserData.getUserMovies().remove(movie);
-                Tools.makeLongToast(getActivity().getApplicationContext(), getResources().getString(R.string.details_film_deleted));
-                movieInCollection = false;
-            }
-
-
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
+        //user dont have this film in his collecion
+        if (!movieInCollection) {
+            Drawable drawable = ContextCompat.getDrawable(getActivity().getApplicationContext(), android.R.drawable.btn_star_big_on);
+            favButton.setImageDrawable(drawable);
+            UserData.getUserMovies().add(movie);
+            Tools.makeLongToast(getActivity().getApplicationContext(), getResources().getString(R.string.details_film_ok));
+            movieInCollection = true;
         }
-
+        //user have it in his collection
+        else {
+            Drawable drawable = ContextCompat.getDrawable(getActivity().getApplicationContext(), android.R.drawable.btn_star_big_off);
+            favButton.setImageDrawable(drawable);
+            UserData.getUserMovies().remove(movie);
+            Tools.makeLongToast(getActivity().getApplicationContext(), getResources().getString(R.string.details_film_deleted));
+            movieInCollection = false;
+        }
 
     }
 

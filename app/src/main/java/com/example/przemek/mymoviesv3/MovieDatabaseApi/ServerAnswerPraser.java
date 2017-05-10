@@ -85,7 +85,7 @@ public class ServerAnswerPraser {
 
     }
 
-    static void addExtraDataToMovie(String jsonRawData, Movie movie) throws JSONException, MovieDatabaseApiException {
+    static void addExtraDataToMovie(String jsonRawData, Movie movie) throws JSONException, MovieDatabaseApiException, IOException {
         JSONObject reader = new JSONObject(jsonRawData);
 
         if (reader.has(ApiParameters.status_message)) {
@@ -95,9 +95,18 @@ public class ServerAnswerPraser {
         movie.setBudget(reader.optInt(ApiParameters.budget, 0));
         movie.setRuntime(reader.optInt(ApiParameters.runtime, 0));
         movie.setPopularity(reader.optInt(ApiParameters.budget, 0));
+
+
+        ArrayList<String> posters = new ArrayList<>();
+        ArrayList<String> backdrops = new ArrayList<>();
+
+        MovieDatabase.getMovieImagesById(movie.getId(), posters, backdrops);
+
+        movie.setPosters(posters);
+        movie.setBackdrops(backdrops);
     }
 
-    public static void generateMovieCastListFromJSONRequest(String jsonRequest, ArrayList<Person> outList) throws JSONException, MovieDatabaseApiException {
+    static void generateMovieCastListFromJSONRequest(String jsonRequest, ArrayList<Person> outList) throws JSONException, MovieDatabaseApiException {
         JSONObject reader = new JSONObject(jsonRequest);
 
         if (reader.has(ApiParameters.status_message)) {
@@ -116,5 +125,25 @@ public class ServerAnswerPraser {
             outList.add(new Person(id, name, character, profilePath));
         }
 
+    }
+
+    static void generateMovieImagesListFromJSONRequesr(String jsonRequest, ArrayList<String> outPosterList, ArrayList<String> outBackdropList) throws JSONException, MovieDatabaseApiException {
+        JSONObject reader = new JSONObject(jsonRequest);
+
+        if (reader.has(ApiParameters.status_message)) {
+            throw new MovieDatabaseApiException();
+        }
+
+        JSONArray postersArray = reader.getJSONArray(ApiParameters.posters_array);
+        for (int i = 0; i < postersArray.length(); i++) {
+            JSONObject poster = postersArray.getJSONObject(i);
+            outPosterList.add(poster.getString(ApiParameters.file_path));
+        }
+
+        JSONArray backdropsArray = reader.getJSONArray(ApiParameters.backdrops_array);
+        for (int i = 0; i < backdropsArray.length(); i++) {
+            JSONObject backdrop = backdropsArray.getJSONObject(i);
+            outBackdropList.add(backdrop.getString(ApiParameters.file_path));
+        }
     }
 }

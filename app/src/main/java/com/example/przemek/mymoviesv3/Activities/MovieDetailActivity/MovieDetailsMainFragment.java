@@ -44,6 +44,7 @@ public class MovieDetailsMainFragment extends Fragment {
 
         HeaderFragment headerFragment = HeaderFragment.getInstance();
         OverviewFragment overviewFragment = OverviewFragment.getInstance();
+        ImagesFragment imagesFragment = ImagesFragment.getInstance();
         RatingBarFragment ratingBarFragment = RatingBarFragment.getInstance();
         CastFragment castFragment = CastFragment.getInstance();
 
@@ -61,6 +62,13 @@ public class MovieDetailsMainFragment extends Fragment {
                         overviewFragment)
                 .commit();
 
+
+        imagesFragment.setArguments(bundle);
+        fragmentManager
+                .beginTransaction()
+                .add(R.id.details_images_holder,
+                        imagesFragment)
+                .commit();
 
         ratingBarFragment.setArguments(bundle);
         fragmentManager

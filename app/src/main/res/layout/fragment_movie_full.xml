@@ -54,6 +54,20 @@
             </FrameLayout>
 
             <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/dividerLineColor"/>
+
+            <FrameLayout
+                android:id="@+id/details_images_holder"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="8dp">
+
+            </FrameLayout>
+
+            <View
                 android:id="@+id/view"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"

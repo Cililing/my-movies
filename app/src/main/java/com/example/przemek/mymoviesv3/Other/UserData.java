@@ -9,6 +9,7 @@ import com.example.przemek.mymoviesv3.MovieDatabaseApi.Movie;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class UserData {
 
@@ -21,16 +22,16 @@ public class UserData {
 
 
     private static ArrayList<Movie> userMovies = new ArrayList<>();
-    private static ArrayList<Movie> searchResult = new ArrayList<>();
+    //private static ArrayList<Movie> searchResult = new ArrayList<>();
     private static SparseLongArray userRatings = new SparseLongArray();
 
     public static ArrayList<Movie> getUserMovies() {
         return userMovies;
     }
 
-    public static ArrayList<Movie> getSearchResult() {
-        return searchResult;
-    }
+    //public static ArrayList<Movie> getSearchResult() {
+    //    return searchResult;
+    //}
 
     public static SparseLongArray getUserRatings() { return userRatings; }
 
@@ -100,6 +101,7 @@ public class UserData {
 
         Gson gson = new Gson();
         userRatings = gson.fromJson(ratingsAsString, SparseLongArray.class);
+        if (userRatings == null) userRatings = new SparseLongArray();
 
     }
 
