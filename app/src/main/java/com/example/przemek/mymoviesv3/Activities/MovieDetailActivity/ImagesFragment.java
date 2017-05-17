@@ -1,32 +1,22 @@
 package com.example.przemek.mymoviesv3.Activities.MovieDetailActivity;
 
 import android.app.Fragment;
-import android.app.WallpaperManager;
-import android.content.DialogInterface;
 import android.content.res.Configuration;
-import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 
-import com.example.przemek.mymoviesv3.Interfaces.CustomItemClickListener;
+import com.example.przemek.mymoviesv3.Activities.Tools.ActivitiesTag;
 import com.example.przemek.mymoviesv3.MovieDatabaseApi.Movie;
-import com.example.przemek.mymoviesv3.MovieDatabaseAsyncTasks.DownloadImageTask;
-import com.example.przemek.mymoviesv3.Other.Tools;
 import com.example.przemek.mymoviesv3.R;
-
-import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,9 +26,9 @@ public class ImagesFragment extends Fragment {
 
     @BindView(R.id.details_movie_images_rv) RecyclerView recyclerView;
     @BindView(R.id.details_movie_images_view) ImageView imageView;
-    private ImagesAdapter imagesAdapter;
 
     private Movie movie;
+
     private Drawable lastClickedDrawable = null;
 
     public static ImagesFragment getInstance() {
@@ -49,13 +39,12 @@ public class ImagesFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_movie_images, container, false);
         ButterKnife.bind(this, view);
 
-        //get movie
-        movie = (Movie) getArguments().getSerializable("movie");
+        movie = (Movie) getArguments().getSerializable(ActivitiesTag.movieBundleTag);
         if (movie == null) return null;
 
         //set rv
         recyclerView.setItemViewCacheSize(20);
-        imagesAdapter = new ImagesAdapter(movie, new CustomItemClickListener(), getActivity());
+        ImagesAdapter imagesAdapter = new ImagesAdapter(movie, new MovieItemClickListener(), getActivity());
 
         RecyclerView.LayoutManager layoutManager = null;
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
@@ -76,7 +65,7 @@ public class ImagesFragment extends Fragment {
         return view;
     }
 
-    class CustomItemClickListener implements com.example.przemek.mymoviesv3.Interfaces.CustomItemClickListener {
+    private class MovieItemClickListener implements com.example.przemek.mymoviesv3.Interfaces.MovieItemClickListener {
 
         @Override
         public void onClick(View view, int position, Object... params) {

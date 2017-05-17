@@ -8,20 +8,21 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.przemek.mymoviesv3.Interfaces.CustomItemClickListener;
+import com.example.przemek.mymoviesv3.Interfaces.MovieItemClickListener;
 import com.example.przemek.mymoviesv3.MovieDatabaseApi.Person;
 import com.example.przemek.mymoviesv3.MovieDatabaseAsyncTasks.DownloadImageTask;
 import com.example.przemek.mymoviesv3.R;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class CastAdapter extends RecyclerView.Adapter<CastAdapter.CastViewHolder>{
 
     private ArrayList<Person> castList;
-    private CustomItemClickListener listener;
-    Context mContext;
+    private MovieItemClickListener listener; //for checking actors
+    private Context mContext;
 
-    public CastAdapter(ArrayList<Person> castList, CustomItemClickListener listener, Context mContext) {
+    CastAdapter(ArrayList<Person> castList, MovieItemClickListener listener, Context mContext) {
         this.castList = castList;
         this.listener = listener;
         this.mContext = mContext;
@@ -38,13 +39,15 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.CastViewHolder
     @Override
     public void onBindViewHolder(CastViewHolder holder, int position) {
         Person person = castList.get(position);
-        //holder.characterImage.setImageDrawable(null);
-        new DownloadImageTask(holder.characterImage, mContext, null)
-                .execute(person.getProfilePath());
 
+        if (Objects.equals(person.getProfilePath(), "null")) {
+            holder.characterImage.setImageResource(R.drawable.emptyposter);
+        } else {
+            new DownloadImageTask(holder.characterImage, mContext, null)
+                    .execute(person.getProfilePath());
+        }
         holder.character.setText(person.getCharacter());
         holder.name.setText(person.getName());
-
     }
 
     @Override
@@ -60,7 +63,7 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.CastViewHolder
         private TextView character;
 
 
-        public CastViewHolder(View itemView) {
+        CastViewHolder(View itemView) {
             super(itemView);
             characterImage = (ImageView) itemView.findViewById(R.id.details_person_image);
             name = (TextView) itemView.findViewById(R.id.details_person_name);

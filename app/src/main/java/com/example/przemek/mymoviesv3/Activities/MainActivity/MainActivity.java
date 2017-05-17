@@ -5,7 +5,6 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,35 +16,34 @@ import com.example.przemek.mymoviesv3.Activities.MovieDetailActivity.MovieDetail
 import com.example.przemek.mymoviesv3.Activities.MovieDetailActivity.MovieDetailsMainFragment;
 import com.example.przemek.mymoviesv3.Activities.MovieRecyclerView.MoviesAdapter;
 import com.example.przemek.mymoviesv3.Activities.SearchMovieActivity.SearchMovieActivity;
+import com.example.przemek.mymoviesv3.Activities.Tools.ActivitiesTag;
 import com.example.przemek.mymoviesv3.Activities.Tools.MovieFragmentEmpty;
 import com.example.przemek.mymoviesv3.MovieDatabaseApi.Movie;
 import com.example.przemek.mymoviesv3.Other.UserData;
 import com.example.przemek.mymoviesv3.R;
 
-import java.io.Serializable;
 import java.util.ArrayList;
+
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 
 public class MainActivity extends AppCompatActivity {
 
     public static final int cacheSize = 20;
 
-    private RecyclerView recyclerView;
     private MoviesAdapter mMoviesAdapter;
-    private FloatingActionButton floatingActionButton;
-    private SearchView searchView;
-
     private ArrayList<Movie> userData;
-
     private FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
+
 
         UserData.loadData(this.getApplicationContext());
-
         userData = UserData.getUserMovies();
 
         fragmentManager = getFragmentManager();
@@ -53,23 +51,15 @@ public class MainActivity extends AppCompatActivity {
             loadStartFragment();
         }
 
-        floatingActionButton = (FloatingActionButton) findViewById(R.id.main_acticity_floating_button);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onFloatingButtomClick();
-            }
-        });
-
-        recyclerView = (RecyclerView) findViewById(R.id.main_activity_recycler_view);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.main_activity_recycler_view);
         recyclerView.setItemViewCacheSize(cacheSize);
 
-        searchView  = (SearchView) findViewById(R.id.main_activity_search_view);
+        SearchView searchView = (SearchView) findViewById(R.id.main_activity_search_view);
         searchView.setOnQueryTextListener(new CustomSearchQueryViewListener());
 
         mMoviesAdapter = new MoviesAdapter(
                 userData,
-                new CustomItemClickListener(),
+                new MovieItemClickListener(),
                 getApplicationContext());
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
@@ -79,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @OnClick(R.id.main_acticity_floating_button)
     public void onFloatingButtomClick() {
         Intent intent = new Intent(this, SearchMovieActivity.class);
         startActivity(intent);
@@ -87,13 +78,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+        UserData.loadData(this);
         mMoviesAdapter.notifyDataSetChanged();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-
         UserData.saveData(this.getApplicationContext());
     }
 
@@ -105,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-    private class CustomItemClickListener implements com.example.przemek.mymoviesv3.Interfaces.CustomItemClickListener {
+    private class MovieItemClickListener implements com.example.przemek.mymoviesv3.Interfaces.MovieItemClickListener {
 
         @Override
         public void onClick(View view, int position, Object... params) {
@@ -117,7 +108,6 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onLongClick(View view, int position, Object... params) {
-            //fragment.toString();
         }
 
         @Override
@@ -129,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
             }
             else if (params[0].equals(movieRowMenuDetailsTag)) {
                 Intent i = new Intent(view.getContext(), MovieDetailsActivity.class);
-                i.putExtra("movie", (Serializable) userData.get(position));
+                i.putExtra(ActivitiesTag.movieBundleTag, userData.get(position));
                 view.getContext().startActivity(i);
             }
 
@@ -141,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
             Bundle fragmentBundle = new Bundle();
-            fragmentBundle.putSerializable("movie", (Serializable) userData.get(position));
+            fragmentBundle.putSerializable(ActivitiesTag.movieBundleTag, userData.get(position));
 
             movieDetailsMainFragment.setArguments(fragmentBundle);
             fragmentTransaction.replace(R.id.main_fragment_container, movieDetailsMainFragment);
@@ -151,41 +141,22 @@ public class MainActivity extends AppCompatActivity {
 
         private void onClickPortrait(View view, int position, Object... params) {
             Intent i = new Intent(view.getContext(), MovieDetailsActivity.class);
-            i.putExtra("movie", (Serializable) userData.get(position));
+            i.putExtra(ActivitiesTag.movieBundleTag, userData.get(position));
             view.getContext().startActivity(i);
         }
     }
 
     private class CustomSearchQueryViewListener implements SearchView.OnQueryTextListener {
-        //TODO
+
         @Override
         public boolean onQueryTextSubmit(String query) {
             //TODO
-//            if (query.equals("")) {
-//                userData = (ArrayList<Movie>) UserData.getUserMovies().clone();
-//                mMoviesAdapter.notifyDataSetChanged();
-//                return true;
-//            }
-//
-//            userData.clear();
-//            for (Movie m : UserData.getUserMovies()) {
-//                if (m.isMatchedPattern(query)) {
-//                    userData.add(m);
-//                }
-//            }
-//            mMoviesAdapter.notifyDataSetChanged();
-//            return true;flase;
             return false;
         }
 
         @Override
         public boolean onQueryTextChange(String newText) {
-            //todo
-//
-//            if (Objects.equals(newText, "")) {
-//                this.onQueryTextSubmit("");
-//            }
-//            return true;
+            //TODO
             return false;
         }
 

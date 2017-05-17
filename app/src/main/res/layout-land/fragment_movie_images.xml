@@ -20,11 +20,11 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/details_movie_images_rv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/default_margin"
+        android:layout_height="120dp"
         android:layout_alignParentBottom="true"
+        android:layout_below="@+id/details_movie_images_view"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/details_movie_images_view">
+        android:layout_marginRight="@dimen/default_margin">
 
     </android.support.v7.widget.RecyclerView>
 

@@ -40,7 +40,9 @@ public class Person {
     }
 
     public String getProfilePath() {
-        return ApiParameters.defaultImageRequest + profilePath;
+        return profilePath.equals("null")
+                ? "null"
+                : ApiParameters.defaultImageRequest + profilePath;
     }
 
     public void setProfilePath(String profilePath) {

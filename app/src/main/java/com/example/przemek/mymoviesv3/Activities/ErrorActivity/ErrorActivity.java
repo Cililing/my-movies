@@ -3,13 +3,16 @@ package com.example.przemek.mymoviesv3.Activities.ErrorActivity;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.example.przemek.mymoviesv3.Other.Tools;
 import com.example.przemek.mymoviesv3.R;
 
+/**
+ * Error activity - shows information about problems with network connection.
+ */
 public class ErrorActivity extends AppCompatActivity {
 
     @Override

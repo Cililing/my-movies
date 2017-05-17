@@ -15,7 +15,7 @@
             android:orientation="vertical">
 
             <FrameLayout
-                android:id="@+id/details_general_holder"
+                android:id="@+id/details_header_holder"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:layout_editor_absoluteX="8dp"
@@ -74,7 +74,7 @@
                 android:background="@color/dividerLineColor" />
 
             <FrameLayout
-                android:id="@+id/details_rate_holder"
+                android:id="@+id/details_rating_holder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:layout_editor_absoluteX="8dp"

@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.przemek.mymoviesv3.Activities.ErrorActivity.ErrorActivity;
+import com.example.przemek.mymoviesv3.Activities.Tools.ActivitiesTag;
 import com.example.przemek.mymoviesv3.MovieDatabaseApi.Movie;
 import com.example.przemek.mymoviesv3.MovieDatabaseApi.Person;
 import com.example.przemek.mymoviesv3.MovieDatabaseAsyncTasks.DownloadCastListTask;
@@ -21,7 +22,6 @@ public class CastFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private CastAdapter mCastAdapter;
-
 
     public static CastFragment getInstance() {
         return new CastFragment();
@@ -48,7 +48,7 @@ public class CastFragment extends Fragment {
         recyclerView.setAdapter(mCastAdapter);
         mCastAdapter.notifyDataSetChanged();
 
-        Movie movie = (Movie) getArguments().getSerializable("movie");
+        Movie movie = (Movie) getArguments().getSerializable(ActivitiesTag.movieBundleTag);
 
         if (movie == null) return null;
         new DownloadCastListTask(

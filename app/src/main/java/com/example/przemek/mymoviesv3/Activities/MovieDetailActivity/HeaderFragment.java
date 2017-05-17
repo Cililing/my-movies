@@ -9,8 +9,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.przemek.mymoviesv3.Activities.ErrorActivity.ErrorActivity;
+import com.example.przemek.mymoviesv3.Activities.Tools.ActivitiesTag;
 import com.example.przemek.mymoviesv3.MovieDatabaseApi.Movie;
 import com.example.przemek.mymoviesv3.MovieDatabaseAsyncTasks.DownloadImageTask;
+import com.example.przemek.mymoviesv3.Other.AutoResizeTextView;
 import com.example.przemek.mymoviesv3.R;
 
 import butterknife.BindView;
@@ -21,9 +23,9 @@ public class HeaderFragment extends Fragment {
     @BindView(R.id.details_poster)
     ImageView poster;
     @BindView(R.id.details_title)
-    TextView title;
+    AutoResizeTextView title;
     @BindView(R.id.details_original_title)
-    TextView originalTitle;
+    AutoResizeTextView originalTitle;
     @BindView(R.id.details_duration)
     TextView duration;
 
@@ -42,11 +44,12 @@ public class HeaderFragment extends Fragment {
     }
 
     private void initlize() {
-        Movie movie = (Movie) getArguments().getSerializable("movie");
+        Movie movie = (Movie) getArguments().getSerializable(ActivitiesTag.movieBundleTag);
 
         if (movie == null) return;
         String posterPath = movie.getPosterPath();
-        new DownloadImageTask(poster, getActivity().getApplicationContext(), ErrorActivity.class).execute(posterPath);
+        new DownloadImageTask(poster, getActivity().getApplicationContext(), ErrorActivity.class)
+                .execute(posterPath);
 
         title.setText(movie.getTitle());
         originalTitle.setText(movie.getOriginalTitle());

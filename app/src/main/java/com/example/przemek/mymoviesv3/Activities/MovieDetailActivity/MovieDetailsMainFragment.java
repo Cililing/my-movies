@@ -3,10 +3,12 @@ package com.example.przemek.mymoviesv3.Activities.MovieDetailActivity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.przemek.mymoviesv3.Activities.Tools.ActivitiesTag;
 import com.example.przemek.mymoviesv3.MovieDatabaseApi.Movie;
 import com.example.przemek.mymoviesv3.Other.UserData;
 import com.example.przemek.mymoviesv3.R;
@@ -30,7 +32,7 @@ public class MovieDetailsMainFragment extends Fragment {
         //load data
         UserData.loadData(view.getContext());
 
-        movie = (Movie) getArguments().getSerializable("movie");
+        movie = (Movie) getArguments().getSerializable(ActivitiesTag.movieBundleTag);
         if (movie == null) movie = new Movie();
         generateThisShit();
 
@@ -48,47 +50,31 @@ public class MovieDetailsMainFragment extends Fragment {
         RatingBarFragment ratingBarFragment = RatingBarFragment.getInstance();
         CastFragment castFragment = CastFragment.getInstance();
 
-        headerFragment.setArguments(bundle);
-        fragmentManager
-                .beginTransaction()
-                .add(R.id.details_general_holder,
-                        headerFragment)
-                .commit();
-
-        overviewFragment.setArguments(bundle);
-        fragmentManager
-                .beginTransaction()
-                .add(R.id.details_overview_holder,
-                        overviewFragment)
-                .commit();
-
-
-        imagesFragment.setArguments(bundle);
-        fragmentManager
-                .beginTransaction()
-                .add(R.id.details_images_holder,
-                        imagesFragment)
-                .commit();
-
-        ratingBarFragment.setArguments(bundle);
-        fragmentManager
-                .beginTransaction()
-                .add(R.id.details_rate_holder,
-                        ratingBarFragment)
-                .commit();
-
-        castFragment.setArguments(bundle);
-        fragmentManager
-                .beginTransaction()
-                .add(R.id.details_cast_holder,
-                        castFragment)
-                .commit();
-
+        reloadFragment(headerFragment, bundle, R.id.details_header_holder, ActivitiesTag.detailsHeaderFragment);
+        reloadFragment(overviewFragment, bundle, R.id.details_overview_holder, ActivitiesTag.detailsOverviewFragment);
+        reloadFragment(imagesFragment, bundle, R.id.details_images_holder, ActivitiesTag.detailsImagesFragment);
+        reloadFragment(ratingBarFragment, bundle, R.id.details_rating_holder, ActivitiesTag.detailsRatingFragment);
+        reloadFragment(castFragment, bundle, R.id.details_cast_holder, ActivitiesTag.detailsCastFragment);
     }
 
     @Override
     public void onStop() {
         super.onStop();
         UserData.saveData(getView().getContext());
+    }
+
+    private void reloadFragment(Fragment fragment, Bundle bundle, @IdRes int holderId, String tag) {
+
+        if (bundle != null) {
+            fragment.setArguments(bundle);
+        }
+
+        fragmentManager
+                .beginTransaction()
+                .replace(holderId,
+                        fragment,
+                        tag)
+                .commit();
+
     }
 }

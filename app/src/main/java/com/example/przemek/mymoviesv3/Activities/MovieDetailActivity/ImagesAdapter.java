@@ -7,23 +7,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.example.przemek.mymoviesv3.Activities.ErrorActivity.ErrorActivity;
-import com.example.przemek.mymoviesv3.Interfaces.CustomItemClickListener;
-import com.example.przemek.mymoviesv3.MovieDatabaseApi.ApiParameters;
+import com.example.przemek.mymoviesv3.Interfaces.MovieItemClickListener;
 import com.example.przemek.mymoviesv3.MovieDatabaseApi.Movie;
 import com.example.przemek.mymoviesv3.MovieDatabaseApi.MovieDatabase;
 import com.example.przemek.mymoviesv3.MovieDatabaseAsyncTasks.DownloadImageTask;
 import com.example.przemek.mymoviesv3.R;
 
-import java.util.List;
-
 public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.ImagesViewHolder> {
 
-    CustomItemClickListener listener;
-    Movie movie;
-    Context mContext;
+    private MovieItemClickListener listener;
+    private Movie movie;
+    private Context mContext;
 
-    public ImagesAdapter(Movie movie, CustomItemClickListener listener, Context mContext) {
+    public ImagesAdapter(Movie movie, MovieItemClickListener listener, Context mContext) {
         this.movie = movie;
         this.listener = listener;
         this.mContext = mContext;
@@ -40,7 +36,7 @@ public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.ImagesView
     @Override
     public void onBindViewHolder(ImagesViewHolder holder, int position) {
         String src = MovieDatabase.getPosterURL(movie.getPostersAndBackDrops().get(position));
-        //holder.image.setImageDrawable(null);
+        holder.image.setImageResource(R.drawable.emptyposter);
         new DownloadImageTask(
                 holder.image,
                 mContext,
@@ -56,7 +52,7 @@ public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.ImagesView
 
         ImageView image;
 
-        public ImagesViewHolder(View itemView) {
+        ImagesViewHolder(View itemView) {
             super(itemView);
 
             image = (ImageView) itemView.findViewById(R.id.details_movie_images_holder_iv);

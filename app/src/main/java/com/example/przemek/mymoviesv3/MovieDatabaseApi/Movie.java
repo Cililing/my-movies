@@ -21,7 +21,7 @@ public class Movie implements Cloneable, Serializable {
     private String title = "title";
     private String releaseDate = "releaseDate";
     private String originalLanguage = "originalLanguage";
-    private String[] genres = new String[1];
+    private String[] genres = {"unknown"};
     private float voteAverage = 0;
 
     private int budget = 0;
@@ -162,6 +162,9 @@ public class Movie implements Cloneable, Serializable {
     }
 
     public String[] getGenres() {
+        if (genres == null || genres.length == 0) {
+            return new String[]{ "" };
+        }
         return genres;
     }
 

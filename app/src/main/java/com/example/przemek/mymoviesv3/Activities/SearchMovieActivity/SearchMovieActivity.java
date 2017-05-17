@@ -18,6 +18,7 @@ import android.widget.SearchView;
 import com.example.przemek.mymoviesv3.Activities.ErrorActivity.ErrorActivity;
 import com.example.przemek.mymoviesv3.Activities.MovieDetailActivity.MovieDetailsActivity;
 import com.example.przemek.mymoviesv3.Activities.MovieDetailActivity.MovieDetailsMainFragment;
+import com.example.przemek.mymoviesv3.Activities.Tools.ActivitiesTag;
 import com.example.przemek.mymoviesv3.Activities.Tools.MovieFragmentEmpty;
 import com.example.przemek.mymoviesv3.Activities.MovieRecyclerView.MoviesAdapter;
 import com.example.przemek.mymoviesv3.MovieDatabaseApi.Movie;
@@ -25,7 +26,6 @@ import com.example.przemek.mymoviesv3.Other.UserData;
 import com.example.przemek.mymoviesv3.MovieDatabaseAsyncTasks.DownloadMoviesListTask;
 import com.example.przemek.mymoviesv3.R;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 public class SearchMovieActivity extends AppCompatActivity {
@@ -69,7 +69,7 @@ public class SearchMovieActivity extends AppCompatActivity {
         //set recycler view
         mMoviesAdapter = new MoviesAdapter(
                 searchResult,
-                new CustomItemClickListener(),
+                new MovieItemClickListener(),
                 this.getApplicationContext()
         );
 
@@ -85,7 +85,6 @@ public class SearchMovieActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         UserData.saveData(this.getApplicationContext());
-
     }
 
     private void loadStartFragment() {
@@ -129,7 +128,7 @@ public class SearchMovieActivity extends AppCompatActivity {
         }
     }
 
-    private class CustomItemClickListener implements com.example.przemek.mymoviesv3.Interfaces.CustomItemClickListener {
+    private class MovieItemClickListener implements com.example.przemek.mymoviesv3.Interfaces.MovieItemClickListener {
 
         @Override
         public void onClick(View view, int position, Object... params) {
@@ -159,7 +158,7 @@ public class SearchMovieActivity extends AppCompatActivity {
             }
             else if (params[0].equals(movieRowMenuDetailsTag)) {
                 Intent i = new Intent(view.getContext(), MovieDetailsActivity.class);
-                i.putExtra("movie", (Serializable) searchResult.get(position));
+                i.putExtra(ActivitiesTag.movieBundleTag, searchResult.get(position));
                 view.getContext().startActivity(i);
             }
 
@@ -171,17 +170,17 @@ public class SearchMovieActivity extends AppCompatActivity {
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
             Bundle fragmentBundle = new Bundle();
-            fragmentBundle.putSerializable("movie", (Serializable) searchResult.get(position));
+            fragmentBundle.putSerializable(ActivitiesTag.movieBundleTag, searchResult.get(position));
 
             movieDetailsMainFragment.setArguments(fragmentBundle);
-            fragmentTransaction.replace(R.id.main_fragment_container, movieDetailsMainFragment);
+            fragmentTransaction.replace(R.id.search_fragment_container, movieDetailsMainFragment);
             fragmentTransaction.commit();
 
         }
 
         private void onClickPortrait(View view, int position, Object... params) {
             Intent i = new Intent(view.getContext(), MovieDetailsActivity.class);
-            i.putExtra("movie", (Serializable) searchResult.get(position));
+            i.putExtra(ActivitiesTag.movieBundleTag, searchResult.get(position));
             view.getContext().startActivity(i);
         }
     }

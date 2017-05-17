@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.example.przemek.mymoviesv3.Activities.Tools.ActivitiesTag;
 import com.example.przemek.mymoviesv3.MovieDatabaseApi.Movie;
 import com.example.przemek.mymoviesv3.Other.Tools;
 import com.example.przemek.mymoviesv3.Other.UserData;
@@ -44,13 +45,13 @@ public class RatingBarFragment extends Fragment {
 
         ButterKnife.bind(this, view);
 
-        generate();
+        initalize();
         return view;
     }
 
-    private void generate() {
+    private void initalize() {
 
-        movie = (Movie) getArguments().getSerializable("movie");
+        movie = (Movie) getArguments().getSerializable(ActivitiesTag.movieBundleTag);
 
         if (movie == null) return;
 

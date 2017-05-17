@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.przemek.mymoviesv3.Interfaces.CustomItemClickListener;
+import com.example.przemek.mymoviesv3.Interfaces.MovieItemClickListener;
 import com.example.przemek.mymoviesv3.R;
 
 class MoviesAdapterHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
@@ -19,14 +19,16 @@ class MoviesAdapterHolder extends RecyclerView.ViewHolder implements View.OnClic
     TextView movieGenres;
     ImageView moviePoster;
 
-    ImageButton settigins;
-    LinearLayout menuLayout;
+    private ImageButton settigins;
+    private LinearLayout menuLayout;
+    private MovieItemClickListener listener;
+
     Button addButton;
     Button detailsButton;
 
-    CustomItemClickListener listener;
 
-    MoviesAdapterHolder(final View itemView, CustomItemClickListener listener) {
+
+    MoviesAdapterHolder(final View itemView, MovieItemClickListener listener) {
         super(itemView);
         this.listener = listener;
         initialize();
@@ -35,7 +37,7 @@ class MoviesAdapterHolder extends RecyclerView.ViewHolder implements View.OnClic
         itemView.setOnLongClickListener(this);
     }
 
-    void initialize() {
+    private void initialize() {
 
         movieTitle = (TextView) itemView.findViewById(R.id.movie_row_title);
         movieReleaseDate = (TextView) itemView.findViewById(R.id.movie_row_release_date);

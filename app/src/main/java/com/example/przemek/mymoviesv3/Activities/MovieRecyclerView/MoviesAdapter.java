@@ -5,13 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import com.example.przemek.mymoviesv3.Interfaces.CustomItemClickListener;
+import com.example.przemek.mymoviesv3.Interfaces.MovieItemClickListener;
 import com.example.przemek.mymoviesv3.MovieDatabaseApi.Movie;
 import com.example.przemek.mymoviesv3.MovieDatabaseAsyncTasks.DownloadImageTask;
 import com.example.przemek.mymoviesv3.Other.UserData;
@@ -23,9 +18,9 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapterHolder> {
 
     private ArrayList<Movie> moviesList;
     private Context mContext;
-    private CustomItemClickListener listener;
+    private MovieItemClickListener listener;
 
-    public MoviesAdapter(ArrayList<Movie> moviesList, CustomItemClickListener listener, Context mContext) {
+    public MoviesAdapter(ArrayList<Movie> moviesList, MovieItemClickListener listener, Context mContext) {
         this.listener = listener;
         this.moviesList = moviesList;
         this.mContext = mContext;
@@ -45,7 +40,10 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapterHolder> {
         holder.movieTitle.setText(movie.getTitle());
         holder.movieAverageRating.setText(String.valueOf(movie.getVoteAverage()));
         holder.movieReleaseDate.setText(movie.getReleaseDate());
-        holder.movieGenres.setText(movie.getGenresList());
+
+        //set main genre
+        holder.movieGenres.setText(movie.getGenres()[0]);
+
         //load img
         if (movie.getBitmapPoster() == null) {
             //there is no bitmapposter saved
